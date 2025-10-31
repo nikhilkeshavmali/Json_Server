@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Nikhil",
+      "skill": "full stack developer"
+    },
+    {
+      "id": 2,
+      "name": "Atul",
+      "skill": "front end developer"
+    },
+    {
+      "id": 3,
+      "name": "Sanket",
+      "skill": "back end developer"
+    },
+    {
+      "id": 4,
+      "name": "Ankush",
+      "skill": "data scientist"
+    },
+    {
+      "id": 5,
+      "name": "Rohit",
+      "skill": "devops engineer"
+    }
+  ]
+}
