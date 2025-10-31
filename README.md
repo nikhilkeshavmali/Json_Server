@@ -1,198 +1,160 @@
-✅ What this repo contains
+# 🚀 JSON Server — Fake REST API + Postman Testing Guide
 
-db.json — sample data (users)
+This project demonstrates how to create a **fake REST API** using `json-server` and test it using **Postman** — perfect for practicing front-end integration or backend simulation.
 
-package.json — scripts to run the fake API
+---
 
-this README.md — instructions
+## 📁 Project Overview
 
-🔧 Prerequisites
+**Tools Used:**  
+- 🟢 Node.js & npm  
+- 🧰 JSON Server  
+- 📬 Postman  
 
-Node.js (v12+) and npm installed.
+**Features:**  
+✅ Create, Read, Update, Delete (CRUD) operations  
+✅ Test all endpoints in Postman  
+✅ Easy setup — ready in 2 minutes  
 
-Postman (or any REST client).
+---
 
-Basic terminal / PowerShell familiarity.
+## ⚙️ Step 1: Create Project Folder
 
-1. Create project folder
+```bash
 mkdir json-server-demo
 cd json-server-demo
 npm init -y
-
-2. Install json-server
-
-You can install as a devDependency or use npx (no install needed).
-
-Option A — local devDependency
-
+📦 Step 2: Install JSON Server
+bash
+Copy code
 npm install json-server --save-dev
+✅ Check installation:
 
+bash
+Copy code
+npx json-server --version
+🗂️ Step 3: Create db.json
+Create a new file called db.json in your project root and add the following data 👇
 
-Option B — run without installing
-
-npx json-server --watch db.json --port 5000
-
-3. Add sample db.json
-
-Create a file named db.json in the project root and paste:
-
+json
+Copy code
 {
   "users": [
     { "id": 1, "name": "Nikhil", "skill": "full stack developer" },
-    { "id": 2, "name": "Atul",   "skill": "front end developer" },
+    { "id": 2, "name": "Atul", "skill": "front end developer" },
     { "id": 3, "name": "Sanket", "skill": "back end developer" },
     { "id": 4, "name": "Ankush", "skill": "data scientist" },
-    { "id": 5, "name": "Rohit",  "skill": "devops engineer" }
+    { "id": 5, "name": "Rohit", "skill": "devops engineer" }
   ]
 }
+🧩 Step 4: Add Server Script in package.json
+Open package.json and add this line under "scripts" 👇
 
-4. Add an npm script (recommended)
-
-Open package.json and add a server script under "scripts":
-
+json
+Copy code
 "scripts": {
-  "server": "json-server --watch db.json --port 5000",
-  "start": "node index.js"
+  "server": "json-server --watch db.json --port 5000"
 }
-
-
-Now you can run:
-
+▶️ Step 5: Start the JSON Server
+bash
+Copy code
 npm run server
+🎉 You’ll see:
 
-
-Expected console output:
-
+arduino
+Copy code
 JSON Server is running
 Resources
 http://localhost:5000/users
+🌐 Step 6: Test Endpoints in Browser or Postman
+Method	Endpoint	Description
+GET	http://localhost:5000/users	Fetch all users
+GET	http://localhost:5000/users/1	Fetch user with ID 1
+POST	http://localhost:5000/users	Add a new user
+PUT	http://localhost:5000/users/1	Replace user with ID 1
+PATCH	http://localhost:5000/users/1	Update user partially
+DELETE	http://localhost:5000/users/1	Delete user with ID 1
 
-5. Endpoints json-server gives you
-
-GET /users → list all users
-
-GET /users/1 → get user with id=1
-
-POST /users → create new user (auto id)
-
-PUT /users/1 → replace user with id=1
-
-PATCH /users/1 → partial update user id=1
-
-DELETE /users/1 → delete user id=1
-json-server also supports query params like ?name=Atul or _sort, _page, _limit.
-
-6. Test with Postman — step-by-step
-A) GET all users
-
+💥 Step 7: Test with Postman (Example Requests)
+🧾 GET — All Users
 Method: GET
 
 URL: http://localhost:5000/users
 
-Send → should return array of 5 user objects (200 OK)
-
-B) GET single user
-
-Method: GET
-
-URL: http://localhost:5000/users/1
-
-Send → returns object for Nikhil
-
-C) POST (create)
-
+➕ POST — Add New User
 Method: POST
 
 URL: http://localhost:5000/users
 
-Body → raw JSON:
+Body (raw JSON):
 
+json
+Copy code
 {
   "name": "Rahul",
   "skill": "mobile developer"
 }
-
-
-Send → response includes created object with id (201 Created).
-
-D) PUT (replace)
-
+🔁 PUT — Replace User
 Method: PUT
 
 URL: http://localhost:5000/users/2
 
-Body:
+Body (raw JSON):
 
+json
+Copy code
 {
   "id": 2,
   "name": "Atul Updated",
-  "skill": "frontend dev"
+  "skill": "frontend engineer"
 }
-
-
-Send → replaces the entire record.
-
-E) PATCH (partial update)
-
+✏️ PATCH — Update Specific Field
 Method: PATCH
 
 URL: http://localhost:5000/users/3
 
-Body:
+Body (raw JSON):
 
-{ "skill": "backend engineer" }
-
-
-Send → only skill changes.
-
-F) DELETE
-
+json
+Copy code
+{
+  "skill": "backend expert"
+}
+❌ DELETE — Remove User
 Method: DELETE
 
 URL: http://localhost:5000/users/5
 
-Send → 200 OK and user removed.
+⚠️ Common Errors & Fixes
+❌ npm error Missing script: "server"
+✅ Fix: Add the "server" script in package.json or run directly with:
 
-7. Helpful Postman tips
-
-Use JSON (application/json) as content-type for body.
-
-Save requests to a collection for reuse.
-
-Use Tests tab in Postman to write basic asserts (e.g., pm.test("status is 200", ()=> pm.response.to.have.status(200));).
-
-8. Common problems & fixes
-npm error Missing script: "server"
-
-You ran npm run server but "server" is not in package.json. Add the script (see step 4) or run with npx:
-
+bash
+Copy code
 npx json-server --watch db.json --port 5000
+❌ Port Already in Use
+✅ Fix: Change port number:
 
-A complete log of this run can be found in: ... npm-cache\_logs\...
-
-Open the referenced log file (path shown in the error) for details. On Windows it’s typically:
-
+bash
+Copy code
+npx json-server --watch db.json --port 4000
+❌ npm ERR! A complete log of this run can be found...
+✅ Fix: Check log file for exact error:
 C:\Users\<YourUser>\AppData\Local\npm-cache\_logs\<timestamp>-debug-0.log
 
-Port already in use
+💡 Extra Tips
+Use --delay 1000 to simulate network latency
 
-If 5000 is taken, use another port:
+bash
+Copy code
+npx json-server --watch db.json --port 5000 --delay 1000
+Add relationships like posts → users using foreign keys.
 
-npx json-server --watch db.json --port 4000
+Use Postman Collections to organize your API tests.
 
-CORS issues from browser-based apps
-
-json-server has CORS enabled by default. If you see CORS problems in development, ensure your browser app is using the correct http://localhost:5000 URL.
-
-9. Extra tips
-
-Use _delay or advanced middleware if you want to simulate latency.
-
-You can add relationships (e.g., posts referencing userId) and json-server will auto-handle nested routes (see json-server docs).
-
-To persist changes across runs, edit db.json or commit it to your repo.
-
-10. Example package.json (minimal)
+📚 Example package.json
+json
+Copy code
 {
   "name": "json-server-demo",
   "version": "1.0.0",
@@ -203,7 +165,22 @@ To persist changes across runs, edit db.json or commit it to your repo.
     "json-server": "^0.17.0"
   }
 }
+✨ Final Result
+Once started, open in your browser:
+👉 http://localhost:5000/users
 
-🎉 You're done!
+You’ll see your JSON data as an API response 🎯
 
-Start the server (npm run server or npx json-server ...) and test the endpoints in Postman.
+💖 Author
+👨‍💻 Nikhil Mali
+Full Stack Developer
+📫 Reach me on GitHub or LinkedIn
+
+🏁 License
+This project is licensed under the MIT License — free to use and modify.
+
+⭐ If you found this helpful, don’t forget to star the repo! ⭐
+
+
+
+
